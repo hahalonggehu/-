@@ -8,6 +8,10 @@ export DEVKITARM
 
 include $(DEVKITPRO)/libnx/switch_rules
 
+$(info ====JYDL_DEBUG====)
+$(info CURDIR=$(CURDIR) BUILD=$(BUILD))
+$(info PORTLIBS=$(PORTLIBS) LIBDIRS=$(LIBDIRS))
+
 TARGET   := jysdl
 BUILD    := build
 
@@ -67,6 +71,8 @@ export INCLUDE  := $(foreach dir,$(INCLUDES),-I$(CURDIR)/$(dir)) \
                    $(foreach dir,$(LIBDIRS),-I$(dir)/include) \
                    -I$(PORTLIBS)/include/SDL2 \
                    -I$(CURDIR)/$(BUILD)
+
+$(info INCLUDE=$(INCLUDE))
 
 export LIBPATHS := $(foreach dir,$(LIBDIRS),-L$(dir)/lib)
 
