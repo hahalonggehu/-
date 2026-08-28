@@ -17,16 +17,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Inspect portlibs
-        run: |
-          echo "===== base_rules ====="
-          sed -n '1,40p' /opt/devkitpro/devkitA64/base_rules
-          echo "===== header exists? ====="
-          ls -la /opt/devkitpro/portlibs/switch/include/SDL2/SDL_ttf.h
-          echo "===== probe compile ====="
-          printf '#include <SDL_ttf.h>\nint main(void){return 0;}\n' > /tmp/t.cpp
-          /opt/devkitpro/devkitA64/bin/aarch64-none-elf-g++ -I/opt/devkitpro/portlibs/switch/include -I/opt/devkitpro/portlibs/switch/include/SDL2 -c /tmp/t.cpp -o /tmp/t.o && echo PROBE_OK || echo PROBE_FAIL
-
       - name: Install switch portlibs
         run: |
           dkp-pacman -S --noconfirm --needed \
@@ -36,18 +26,8 @@ jobs:
       - name: Build NRO
         working-directory: engine
         run: |
-          E="$(pwd)"
-          P=/opt/devkitpro/portlibs/switch/include
-          printf '#!/bin/sh\nexec /opt/devkitpro/devkitA64/bin/aarch64-none-elf-gcc -I"%s/src" -I"%s/minizip_config" -I"%s/vendor/minizip" -I"%s/vendor/minizip/compat" -I"%s/vendor/lua/src" -I"%s/include" -I"%s/include/SDL2" "$@"\n' "$E" "$E" "$E" "$E" "$E" "$P" "$P" > /tmp/ccwrap
-          printf '#!/bin/sh\nexec /opt/devkitpro/devkitA64/bin/aarch64-none-elf-g++ -I"%s/src" -I"%s/minizip_config" -I"%s/vendor/minizip" -I"%s/vendor/minizip/compat" -I"%s/vendor/lua/src" -I"%s/include" -I"%s/include/SDL2" "$@"\n' "$E" "$E" "$E" "$E" "$E" "$P" "$P" > /tmp/cxxwrap
-          chmod +x /tmp/ccwrap /tmp/cxxwrap
           export PATH="$PATH:/opt/devkitpro/tools/bin"
-          echo "== CXX=$CXX =="
-          echo "== CC=$CC =="
-          echo "== base_rules lines 10-25 =="
-          sed -n '10,25p' /opt/devkitpro/devkitA64/base_rules
-          echo "== make trace =="
-          make --trace 2>&1 | head -40
+          make
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4

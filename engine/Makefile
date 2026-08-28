@@ -27,14 +27,14 @@ CFLAGS   := -g -Wall -O2 -ffunction-sections -fdata-sections $(ARCH) \
             -D__SWITCH__ -DSDL_MAIN_HANDLED \
             -DMZ_COMPAT_VERSION=111 -DHAVE_ZLIB=1 -DZLIB_COMPAT \
             -DHAVE_ICONV=0 -DMZ_BUILD -DMZ_ZIP_NO_ENCRYPTION -DMZ_ZIP_NO_CRYPTO \
+            -I$(LIBNX)/include \
+            -I$(PORTLIBS)/include -I$(PORTLIBS)/include/SDL2 \
+            $(foreach dir,$(INCLUDES),-I$(CURDIR)/$(dir)) \
             $(DEFINES)
 
 CXXFLAGS := $(CFLAGS) -fno-rtti -fno-exceptions -std=c++11
 
 ASFLAGS  := -g $(ARCH)
-
-override CC  := /tmp/ccwrap
-override CXX := /tmp/cxxwrap
 
 LIBS     := -lSDL2_mixer -lSDL2_ttf -lSDL2_image -lSDL2 -lz -lfreetype \
             -lpng -ljpeg -lm
