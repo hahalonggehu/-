@@ -85,7 +85,7 @@ export LIBPATHS := $(foreach dir,$(LIBDIRS),-L$(dir)/lib)
 all: $(OUTPUT).nro
 
 $(OUTPUT).nro: $(OUTPUT).elf
-	@$(PREFIX)elf2nro $< $@ $(NROFLAGS)
+	@elf2nro $< $@ $(NROFLAGS)
 	@echo built ... $(notdir $@)
 
 $(OUTPUT).elf: $(OFILES)
