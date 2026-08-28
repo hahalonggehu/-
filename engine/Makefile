@@ -38,7 +38,7 @@ ASFLAGS  := -g $(ARCH)
 
 LIBS     := -lSDL2_mixer -lSDL2_ttf -lSDL2_image -lSDL2 \
             -lfreetype -lharfbuzz -lbz2 \
-            -lpng -ljpeg -lz -lm
+            -lpng -ljpeg -lz -lm -lnx
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries
