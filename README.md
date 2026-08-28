@@ -11,11 +11,7 @@ Homebrew（NRO）。本仓库 **只含引擎源码**，不含任何游戏数据�
 - 手动触发：Actions 页面 → **Build switch NRO** → Run workflow
 - 自动触发：任意 push（`push` 事件）
 
-构建产物在每次运行页底部的 **Artifacts** 中下载（`jysdl-nro`）。
-
-同时 CI 会自动把 `jysdl.nro` 提交到**仓库根目录**：
-回到仓库首页 → 点 `jysdl.nro` → 右侧 **Download** 按钮即可直接下载。
-（多个分支同名文件时以最新提交为准；请用文件刷新确认时间。）
+构建产物在每次运行页底部的 **Artifacts** 中下载（`jysdl-nro`，保留 90 天）。
 
 ## 在 Switch 上运行
 
