@@ -1,0 +1,10 @@
+# build output (produced inside the Actions container)
+engine/build/
+engine/jysdl.elf
+engine/jysdl.nro
+
+# misc
+*.o
+*.bat
+thumbs.db
+.DS_Store
