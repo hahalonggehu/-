@@ -26,6 +26,7 @@ jobs:
       - name: Build NRO
         working-directory: engine
         run: |
+          mkdir -p build/src build/minizip_config build/vendor/minizip build/vendor/minizip/compat build/vendor/lua/src
           export PATH="$PATH:/opt/devkitpro/tools/bin"
           make
 
