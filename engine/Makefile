@@ -24,7 +24,7 @@ APP_VERSION := 1.12
 ARCH := -march=armv8-a -mtune=cortex-a57 -mtp=soft -fPIC -ftls-model=local-exec
 
 CFLAGS   := -g -Wall -O2 -ffunction-sections -fdata-sections $(ARCH) \
-            -D__SWITCH__ -DSDL_MAIN_HANDLED \
+            -D__SWITCH__ \
             -DMZ_COMPAT_VERSION=111 -DHAVE_ZLIB=1 -DZLIB_COMPAT \
             -DHAVE_ICONV=0 -DMZ_BUILD -DMZ_ZIP_NO_ENCRYPTION -DMZ_ZIP_NO_CRYPTO \
             -I$(LIBNX)/include \

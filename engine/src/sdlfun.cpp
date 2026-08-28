@@ -692,7 +692,19 @@ static void SwitchPollPad()
     Uint32 now = SDL_GetTicks();
 
     int up = 0, down = 0, left = 0, right = 0;
-    PadState pad;
+    u64 padBtns = 0;
+    static PadState swpad;
+    static bool swpadInit = false;
+    if (!g_Pad)
+    {
+        if (!swpadInit)
+        {
+            padInitializeAny(&swpad);
+            swpadInit = true;
+        }
+        padUpdate(&swpad);
+        padBtns = padGetButtons(&swpad);
+    }
     if (g_Pad)
     {
         up = SDL_GameControllerGetButton(g_Pad, SDL_CONTROLLER_BUTTON_DPAD_UP);
@@ -706,11 +718,10 @@ static void SwitchPollPad()
     }
     else
     {
-        padGetState(&pad, kHidControllerHandheldAuto);
-        up = padStateIsDown(&pad, HidNpadButton_Up) || padStateIsDown(&pad, HidNpadButton_StickLUp);
-        down = padStateIsDown(&pad, HidNpadButton_Down) || padStateIsDown(&pad, HidNpadButton_StickLDown);
-        left = padStateIsDown(&pad, HidNpadButton_Left) || padStateIsDown(&pad, HidNpadButton_StickLLeft);
-        right = padStateIsDown(&pad, HidNpadButton_Right) || padStateIsDown(&pad, HidNpadButton_StickLRight);
+        up = (padBtns & HidNpadButton_Up) || (padBtns & HidNpadButton_StickLUp);
+        down = (padBtns & HidNpadButton_Down) || (padBtns & HidNpadButton_StickLDown);
+        left = (padBtns & HidNpadButton_Left) || (padBtns & HidNpadButton_StickLLeft);
+        right = (padBtns & HidNpadButton_Right) || (padBtns & HidNpadButton_StickLRight);
     }
 
     int keys[SWPAD_NUM];
@@ -727,10 +738,10 @@ static void SwitchPollPad()
     }
     else
     {
-        keys[4] = padStateIsDown(&pad, HidNpadButton_A);
-        keys[5] = padStateIsDown(&pad, HidNpadButton_B);
-        keys[6] = padStateIsDown(&pad, HidNpadButton_X);
-        keys[7] = padStateIsDown(&pad, HidNpadButton_Y);
+        keys[4] = (padBtns & HidNpadButton_A) ? 1 : 0;
+        keys[5] = (padBtns & HidNpadButton_B) ? 1 : 0;
+        keys[6] = (padBtns & HidNpadButton_X) ? 1 : 0;
+        keys[7] = (padBtns & HidNpadButton_Y) ? 1 : 0;
     }
 
     for (int i = 0; i < (int)SWPAD_NUM; i++)
