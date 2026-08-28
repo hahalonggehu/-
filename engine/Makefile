@@ -8,10 +8,6 @@ export DEVKITARM
 
 include $(DEVKITPRO)/libnx/switch_rules
 
-$(info ====JYDL_DEBUG====)
-$(info CURDIR=$(CURDIR) BUILD=$(BUILD))
-$(info PORTLIBS=$(PORTLIBS) LIBDIRS=$(LIBDIRS))
-
 TARGET   := jysdl
 BUILD    := build
 
@@ -89,6 +85,21 @@ $(OUTPUT).elf: $(OFILES)
 	@$(LD) $(LDFLAGS) $(OFILES) $(LIBPATHS) $(LIBS) -o $@
 	@echo built ... $(notdir $@)
 
+$(DEPSDIR):
+	@mkdir -p $(DEPSDIR)
+
+%.o: %.c | $(DEPSDIR)
+	@echo C $<
+	@$(CC) -MMD -MP -MF $(DEPSDIR)/$(notdir $*).d $(CFLAGS) $(INCLUDE) -c $< -o $@
+
+%.o: %.cpp | $(DEPSDIR)
+	@echo C++ $<
+	@$(CXX) -MMD -MP -MF $(DEPSDIR)/$(notdir $*).d $(CXXFLAGS) $(INCLUDE) -c $< -o $@
+
+%.o: %.s | $(DEPSDIR)
+	@echo ASM $<
+	@$(AS) -MMD -MP -MF $(DEPSDIR)/$(notdir $*).d $(ASFLAGS) $(INCLUDE) -c $< -o $@
+
 clean:
 	@rm -rf $(BUILD) $(TARGET).elf $(TARGET).nro
 
@@ -108,7 +119,6 @@ $(DEPSDIR):
 
 %.o: %.cpp
 	@echo $(notdir $<)
-	@echo CMD:$(CXX) $(CXXFLAGS) $(INCLUDE) -c $< -o $@
 	@$(CXX) -MMD -MP -MF $(DEPSDIR)/$*.d $(CXXFLAGS) $(INCLUDE) -c $< -o $@
 
 %.o: %.s
