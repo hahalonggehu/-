@@ -12,7 +12,7 @@ TARGET   := jysdl
 BUILD    := build
 
 SOURCES  := src vendor/minizip vendor/minizip/compat minizip_config vendor/lua/src
-INCLUDES := src minizip_config vendor/minizip vendor/minizip/compat vendor/lua/src
+INCLUDES := src minizip_config vendor/minizip vendor/minizip/compat vendor/minizip/extra vendor/lua/src
 
 APP_TITLE   := JYSKY 1.12
 APP_AUTHOR  := jysdl-switch
