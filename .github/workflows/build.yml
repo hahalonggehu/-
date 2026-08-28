@@ -17,6 +17,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Inspect portlibs
+        run: |
+          echo "== include dir =="
+          ls /opt/devkitpro/portlibs/switch/include/ 2>&1 | head -40
+          echo "== SDL paths =="
+          find /opt/devkitpro/portlibs/switch -iname "*sdl*" 2>/dev/null | head -40
+
       - name: Install switch portlibs
         run: |
           dkp-pacman -S --noconfirm --needed \

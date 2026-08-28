@@ -102,6 +102,7 @@ $(DEPSDIR):
 
 %.o: %.cpp
 	@echo $(notdir $<)
+	@echo CMD:$(CXX) $(CXXFLAGS) $(INCLUDE) -c $< -o $@
 	@$(CXX) -MMD -MP -MF $(DEPSDIR)/$*.d $(CXXFLAGS) $(INCLUDE) -c $< -o $@
 
 %.o: %.s
