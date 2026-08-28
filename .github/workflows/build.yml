@@ -17,6 +17,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install switch portlibs
+        run: |
+          dkp-pacman -S --noconfirm --needed \
+            switch-sdl2 switch-sdl2_ttf switch-sdl2_mixer switch-sdl2_image \
+            switch-zlib switch-libpng switch-libjpeg-turbo switch-freetype switch-bzip2
+
       - name: Build NRO
         working-directory: engine
         run: |
