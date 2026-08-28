@@ -33,6 +33,9 @@ CXXFLAGS := $(CFLAGS) -fno-rtti -fno-exceptions -std=c++11
 
 ASFLAGS  := -g $(ARCH)
 
+override CC  := /tmp/ccwrap
+override CXX := /tmp/cxxwrap
+
 LIBS     := -lSDL2_mixer -lSDL2_ttf -lSDL2_image -lSDL2 -lz -lfreetype \
             -lpng -ljpeg -lm
 
