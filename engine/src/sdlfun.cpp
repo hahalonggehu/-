@@ -14,6 +14,7 @@
 #include <map>
 #ifdef __SWITCH__
 #include <string.h>
+#include <switch.h>
 #endif
 
 #ifdef __SWITCH__
