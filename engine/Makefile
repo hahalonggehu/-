@@ -39,7 +39,7 @@ ASFLAGS  := -g $(ARCH)
 LDFLAGS  := -specs=$(DEVKITPRO)/libnx/switch.specs $(ARCH)
 
 LIBS     := -lSDL2_mixer -lSDL2_ttf -lSDL2_image -lSDL2 \
-            -lopusfile -lopus -lvorbisidec -logg -lmpg123 -lmodplug -lflac -lwebp \
+            -lopusfile -lopus -lvorbisidec -logg -lmpg123 -lmodplug -lFLAC -lwebp \
             -lfreetype -lharfbuzz -lbz2 \
             -lpng -ljpeg -lz -lEGL -lGLESv2 -lglapi -ldrm_nouveau \
             -lm -lnx
@@ -59,7 +59,7 @@ export OUTPUT  := $(CURDIR)/$(TARGET)
 export VPATH   := $(foreach dir,$(SOURCES),$(CURDIR)/$(dir))
 export DEPSDIR := $(CURDIR)/$(BUILD)
 
-CFILES   := $(foreach dir,$(SOURCES),$(wildcard $(dir)/*.c))
+CFILES   := $(filter-out vendor/lua/src/lua.c vendor/lua/src/luac.c,$(foreach dir,$(SOURCES),$(wildcard $(dir)/*.c)))
 CPPFILES := $(foreach dir,$(SOURCES),$(wildcard $(dir)/*.cpp))
 SFILES   := $(foreach dir,$(SOURCES),$(wildcard $(dir)/*.s))
 
