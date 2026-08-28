@@ -36,8 +36,9 @@ CXXFLAGS := $(CFLAGS) -fno-rtti -fno-exceptions -std=c++11
 
 ASFLAGS  := -g $(ARCH)
 
-LIBS     := -lSDL2_mixer -lSDL2_ttf -lSDL2_image -lSDL2 -lz -lfreetype \
-            -lpng -ljpeg -lm
+LIBS     := -lSDL2_mixer -lSDL2_ttf -lSDL2_image -lSDL2 \
+            -lfreetype -lharfbuzz -lbz2 \
+            -lpng -ljpeg -lz -lm
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries
