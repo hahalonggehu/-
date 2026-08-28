@@ -194,7 +194,7 @@ int main(int argc, char* argv[])
     //lua_State* pL_main;
 
 #ifdef __SWITCH__
-    sdmcInit();
+    fsdevMountSdmc();
 #endif
 
     remove(DEBUG_FILE);
