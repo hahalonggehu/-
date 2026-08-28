@@ -21,7 +21,8 @@ jobs:
         run: |
           dkp-pacman -S --noconfirm --needed \
             switch-sdl2 switch-sdl2_ttf switch-sdl2_mixer switch-sdl2_image \
-            switch-zlib switch-libpng switch-libjpeg-turbo switch-freetype switch-bzip2
+            switch-zlib switch-libpng switch-libjpeg-turbo switch-freetype switch-bzip2 \
+            switch-mesa switch-libdrm_nouveau
 
       - name: Build NRO
         working-directory: engine
